@@ -1,0 +1,2 @@
+# nextslide-editor
+
