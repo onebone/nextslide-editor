@@ -1,14 +1,26 @@
 import Vector3 from '../math/Vector3';
+import Anchor from './Anchor';
+import globals from '../globals';
+import config from '../config';
+
+const ANCHORS = [
+	0, 1, 2,
+	4,    6,
+	8, 9, 10
+];
 
 class ShapeObject extends Vector3 {
 	/**
 	 * @param {Number} id
 	 * @param {Vector3} pos
+	 * @param {Vector2} size
 	 */
-	constructor(id, pos) {
+	constructor(id, pos, size) {
 		super(pos.x, pos.y, pos.z);
 
 		this.id = id;
+		this.anchors = [];
+		this.size = size;
 
 		this.needUpdate = true;
 		/**
@@ -19,6 +31,14 @@ class ShapeObject extends Vector3 {
 		this.currentlyShown = true;
 
 		this.closed = false;
+
+		/**
+		 * This variable is for checking whether super.render()
+		 * is called from child. It will throw error if not
+		 * called.
+		 * @type {boolean}
+		 */
+		this._called = false;
 	}
 
 	isInside() {
@@ -44,7 +64,47 @@ class ShapeObject extends Vector3 {
 		this.currentlyShown = false;
 	}
 
-	render() {}
+	showAnchors() {
+		ANCHORS.forEach(v => {
+			const dx = v & 0b0011;
+			const dy = (v & 0b1100) >>> 2;
+
+			const a = new Anchor(
+				this,
+				globals.shapeId++,
+				v,
+				new Vector3(
+					this.x + dx * this.size.x/2 - config.AnchorSize/2,
+					this.y + dy * this.size.y/2 - config.AnchorSize/2,
+					globals.topZIndex
+				)
+			);
+
+			this.anchors.push(a);
+		});
+
+		globals.topZIndex++;
+	}
+
+	removeAnchors() {
+		this.anchors.forEach(a => a.close());
+	}
+
+	checkAnchors(pos) {
+		for(const a of this.anchors) {
+			if(a.isInside(pos)) {
+				return a;
+			}
+		}
+		return null;
+	}
+
+	render(canvas) {
+		this._called = true;
+
+		this.anchors.forEach(a => a.render(canvas));
+		this.anchors = this.anchors.filter(a => a.closed === false);
+	}
 }
 
 export default ShapeObject;

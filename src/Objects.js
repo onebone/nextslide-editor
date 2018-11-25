@@ -27,6 +27,12 @@ class Objects {
 
 					zIndex = obj.z;
 				}
+			}else{
+				const anchor = obj.checkAnchors(pos);
+				if(anchor !== null) {
+					picked = obj;
+					zIndex = Infinity;
+				}
 			}
 		});
 
@@ -37,7 +43,11 @@ class Objects {
 		let hasClosed = false;
 
 		this.objs.forEach(obj => {
+			obj._called = false;
 			obj.render(this.canvas);
+			if(obj._called === false) {
+				throw new Error('super.render() not called');
+			}
 
 			if(obj.closed) hasClosed = true;
 		});

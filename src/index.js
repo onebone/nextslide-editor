@@ -8,6 +8,7 @@ const f = require('fabric').fabric;
 const canvas = new f.StaticCanvas('canvas');
 
 const objs = new Objects(canvas);
+globals.objs = objs;
 
 /// TEST CODE
 const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), 100);
@@ -30,5 +31,7 @@ addEventListener('mousedown', e => {
 	const pos = new Vector2(e.clientX, e.clientY);
 
 	const obj = objs.pickObject(pos);
-	console.log(obj);
+	obj.showAnchors();
+
+	objs.render();
 });

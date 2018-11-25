@@ -1,5 +1,6 @@
 import ShapeObject from '../ShapeObject';
 import Config from '../../config';
+import Vector2 from '../../math/Vector2';
 
 const f = require('fabric').fabric;
 
@@ -11,7 +12,7 @@ class Circle extends ShapeObject {
 	 * @param {String} fill
 	 */
 	constructor(id, pos, radius, fill = Config.DEFAULT_FILL_COLOR) {
-		super(id, pos);
+		super(id, pos, new Vector2(radius*2, radius*2));
 
 		this.radius = radius;
 		this.fill = fill;
@@ -29,12 +30,16 @@ class Circle extends ShapeObject {
 	}
 
 	render(canvas) {
+		super.render(canvas);
+
 		if(this.needUpdate) { // TODO: hmm...
 			canvas.remove(this.obj);
 
 			if(this.currentlyShown) {
 				canvas.add(this.obj);
 			}
+
+			this.needUpdate = false;
 		}
 	}
 }
