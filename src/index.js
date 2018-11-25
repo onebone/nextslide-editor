@@ -1,5 +1,6 @@
 import Objects from './Objects';
 import Circle from './object/shape/Circle';
+import Vector2 from './math/Vector2';
 import Vector3 from './math/Vector3';
 import globals from './globals';
 
@@ -24,3 +25,10 @@ addEventListener('resize', () => {
 });
 
 resize();
+
+addEventListener('mousedown', e => {
+	const pos = new Vector2(e.clientX, e.clientY);
+
+	const obj = objs.pickObject(pos);
+	console.log(obj);
+});

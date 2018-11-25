@@ -24,12 +24,8 @@ class Circle extends ShapeObject {
 		});
 	}
 
-	/**
-	 * @param pos
-	 * @returns {*}
-	 */
 	isInside(pos) {
-		return this.add(this.radius, this.radius).distance(pos) < this.radius;
+		return this.add(this.radius).asVector2().distance(pos) < this.radius;
 	}
 
 	render(canvas) {

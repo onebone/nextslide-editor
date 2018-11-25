@@ -1,4 +1,4 @@
-import Vector3 from '../math/Vector3'
+import Vector3 from '../math/Vector3';
 
 class ShapeObject extends Vector3 {
 	/**
@@ -6,7 +6,7 @@ class ShapeObject extends Vector3 {
 	 * @param {Vector3} pos
 	 */
 	constructor(id, pos) {
-		super(pos.x, pos.y);
+		super(pos.x, pos.y, pos.z);
 
 		this.id = id;
 

@@ -1,3 +1,5 @@
+import Vector2 from './Vector2';
+
 class Vector3 {
 	constructor(x, y, z) {
 		this.x = x;
@@ -10,6 +12,10 @@ class Vector3 {
 		if(y === null) y = x;
 
 		return new Vector3(this.x + x, this.y + y, this.z + z);
+	}
+
+	asVector2() {
+		return new Vector2(this.x, this.y);
 	}
 
 	/**
