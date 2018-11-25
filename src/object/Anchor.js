@@ -30,6 +30,17 @@ class Anchor extends Vector3 {
 		this._called = false;
 	}
 
+	move(dx, dy) {
+		this.x += dx;
+		this.y += dy;
+
+		this.needUpdate = true;
+
+		this.obj.set({
+			left: this.x, top: this.y
+		});
+	}
+
 	/**
 	 * Shows anchor to the screen
 	 */

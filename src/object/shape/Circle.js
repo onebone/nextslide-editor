@@ -25,13 +25,19 @@ class Circle extends ShapeObject {
 		});
 	}
 
+	move(dx, dy) {
+		super.move(dx, dy);
+
+		this.obj.set({
+			left: this.x, top: this.y
+		});
+	}
+
 	isInside(pos) {
 		return this.add(this.radius).asVector2().distance(pos) < this.radius;
 	}
 
 	render(canvas) {
-		super.render(canvas);
-
 		if(this.needUpdate) { // TODO: hmm...
 			canvas.remove(this.obj);
 
@@ -41,6 +47,8 @@ class Circle extends ShapeObject {
 
 			this.needUpdate = false;
 		}
+
+		super.render(canvas);
 	}
 }
 

@@ -34,7 +34,7 @@ addEventListener('mousedown', e => {
 
 	const obj = objs.pickObject(pos);
 	mouse.obj = obj;
-	mouse.pos = pos;
+	mouse.lastPos = mouse.firstPos = pos;
 	mouse.down = true;
 
 	if(mouse.obj !== null) {
@@ -46,7 +46,14 @@ addEventListener('mousedown', e => {
 
 addEventListener('mousemove', e => {
 	if(mouse.down) {
-		// TODO: move
+		const pos = new Vector2(e.clientX, e.clientY);
+
+		if(mouse.obj !== null) {
+			mouse.obj.move(e.clientX - mouse.lastPos.x, e.clientY - mouse.lastPos.y);
+		}
+
+		mouse.lastPos = pos;
+		objs.render();
 	}
 });
 

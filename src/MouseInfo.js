@@ -7,7 +7,8 @@ class MouseInfo {
 		 * @type {boolean}
 		 */
 		this.down = false;
-		this.pos = new Vector2(0, 0);
+		this.firstPos = new Vector2(0, 0);
+		this.lastPos = new Vector2(0, 0);
 		this.obj = null;
 	}
 }

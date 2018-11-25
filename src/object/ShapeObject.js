@@ -41,6 +41,17 @@ class ShapeObject extends Vector3 {
 		this._called = false;
 	}
 
+	move(dx, dy) {
+		this.x += dx;
+		this.y += dy;
+
+		this.anchors.forEach(a => {
+			a.move(dx, dy);
+		});
+
+		this.needUpdate = true;
+	}
+
 	isInside() {
 		return false;
 	}
@@ -99,6 +110,9 @@ class ShapeObject extends Vector3 {
 		return null;
 	}
 
+	/**
+	 * Should be called after rendering child object
+	 */
 	render(canvas) {
 		this._called = true;
 
