@@ -17,6 +17,10 @@ class Vector2 {
 
 		return Math.sqrt(dx * dx + dy * dy);
 	}
+
+	asVector2() {
+		return new Vector2(this.x, this.y);
+	}
 }
 
 export default Vector2;
