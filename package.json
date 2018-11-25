@@ -24,6 +24,7 @@
     "file-loader": "^1.1.11",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "fabric": "^2.4.3"
   }
 }

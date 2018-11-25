@@ -23,3 +23,5 @@ class Vector3 {
 		return Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 }
+
+export default Vector3;

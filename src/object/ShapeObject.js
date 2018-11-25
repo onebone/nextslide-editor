@@ -10,6 +10,14 @@ class ShapeObject extends Vector3 {
 
 		this.id = id;
 
+		this.needUpdate = true;
+		/**
+		 * Whether this object is requested to be shown
+		 * This object will be updated on next render update
+		 * @type {boolean}
+		 */
+		this.currentlyShown = true;
+
 		this.closed = false;
 	}
 
@@ -19,7 +27,24 @@ class ShapeObject extends Vector3 {
 
 	close() {
 		this.closed = true;
+		this.currentlyShown = false;
+
+		this.needUpdate = true;
 	}
+
+	show() {
+		this.needUpdate = this.currentlyShown === false;
+
+		this.currentlyShown = true;
+	}
+
+	hide() {
+		this.needUpdate = this.currentlyShown === true;
+
+		this.currentlyShown = false;
+	}
+
+	render() {}
 }
 
 export default ShapeObject;
