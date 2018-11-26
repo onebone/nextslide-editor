@@ -135,21 +135,29 @@ class ShapeObject extends Vector3 {
 		this.size.x += dx;
 		this.size.y += dy;
 
+		let posX = 0, posY = 0;
 		if(this.size.x < 0) {
+			posX = this.size.x;
+
 			this.reverseAnchorX();
 		}
 
 		if(this.size.y < 0) {
+			posY = this.size.y;
+
 			this.reverseAnchorY();
 		}
 
 		if([0, 4, 8].includes(anchorId)) {
-			this.x -= dx;
+			posX -= dx;
 		}
 
 		if([0, 1, 2].includes(anchorId)){
-			this.y -= dy;
+			posY -= dy;
 		}
+
+		this.x += posX;
+		this.y += posY;
 
 		this.size = this.size.abs();
 
