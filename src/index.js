@@ -16,6 +16,9 @@ const mouse = new MouseInfo();
 /// TEST CODE
 const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), new Vector2(100, 100));
 objs.addObject(circle);
+
+const circle2 = new Circle(globals.shapeId++, new Vector3(200, 200, globals.topZIndex++), new Vector2(100, 100));
+objs.addObject(circle2);
 objs.render(canvas);
 
 function resize() {

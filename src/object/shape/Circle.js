@@ -72,8 +72,6 @@ class Circle extends ShapeObject {
 			ry: this.size.y/2
 		});
 
-		console.log('resize', dx, dy);
-
 		this.needUpdate = true;
 	}
 }

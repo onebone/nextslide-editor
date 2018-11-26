@@ -44,8 +44,6 @@ class Anchor extends Vector3 {
 	}
 
 	move(dx, dy) {
-		console.log('anchor move');
-
 		this.parent._onAnchorMove(this.anchorId, dx, dy);
 	}
 
