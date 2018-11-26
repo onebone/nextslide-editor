@@ -1,4 +1,5 @@
 import Objects from './Objects';
+import ShapeObject from './object/ShapeObject';
 import MouseInfo from './MouseInfo';
 import Circle from './object/shape/Circle';
 import Vector2 from './math/Vector2';
@@ -13,7 +14,7 @@ const objs = new Objects(canvas);
 const mouse = new MouseInfo();
 
 /// TEST CODE
-const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), 100);
+const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), new Vector2(100, 100));
 objs.addObject(circle);
 objs.render(canvas);
 
@@ -37,7 +38,7 @@ addEventListener('mousedown', e => {
 	mouse.lastPos = mouse.firstPos = pos;
 	mouse.down = true;
 
-	if(mouse.obj !== null) {
+	if(mouse.obj instanceof ShapeObject) {
 		obj.showAnchors();
 	}
 

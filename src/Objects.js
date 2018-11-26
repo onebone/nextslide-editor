@@ -21,17 +21,15 @@ class Objects {
 		let picked = null;
 
 		this.objs.forEach(obj => {
-			if(obj.isInside(pos)) {
+			const anchor = obj.checkAnchors(pos);
+			if(anchor !== null) {
+				picked = anchor;
+				zIndex = Infinity;
+			}else if(obj.isInside(pos)) {
 				if(obj.z >= zIndex) {
 					picked = obj;
 
 					zIndex = obj.z;
-				}
-			}else{
-				const anchor = obj.checkAnchors(pos);
-				if(anchor !== null) {
-					picked = obj;
-					zIndex = Infinity;
 				}
 			}
 		});

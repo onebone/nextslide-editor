@@ -8,17 +8,18 @@ class Circle extends ShapeObject {
 	/**
 	 * @param {Number} id
 	 * @param {Vector3} pos
-	 * @param {Number} radius
+	 * @param {Vector2} size
 	 * @param {String} fill
 	 */
-	constructor(id, pos, radius, fill = Config.DEFAULT_FILL_COLOR) {
-		super(id, pos, new Vector2(radius*2, radius*2));
+	constructor(id, pos, size, fill = Config.DEFAULT_FILL_COLOR) {
+		super(id, pos, size);
 
-		this.radius = radius;
 		this.fill = fill;
 
-		this.obj = new f.Circle({
-			radius: this.radius,
+		this.obj = new f.Ellipse({
+			rx: this.size.x/2,
+			ry: this.size.y/2,
+			angle: 0,
 			fill: this.fill,
 			left: this.x,
 			top: this.y
@@ -34,7 +35,21 @@ class Circle extends ShapeObject {
 	}
 
 	isInside(pos) {
-		return this.add(this.radius).asVector2().distance(pos) < this.radius;
+		pos = pos.asVector2();
+
+		const c = Math.sqrt(Math.abs(this.size.x * this.size.x - this.size.y * this.size.y))/2;
+		const axis = Math.max(this.size.x, this.size.y);
+
+		let dx = 0, dy = 0;
+		if(this.size.x > this.size.y) {
+			dx = c;
+		}else{
+			dy = c;
+		}
+
+		const p = this.asVector2().add(this.size.x/2, this.size.y/2);
+
+		return p.add(dx, dy).distance(pos) + p.add(-dx, -dy).distance(pos) <= axis;
 	}
 
 	render(canvas) {
@@ -49,6 +64,17 @@ class Circle extends ShapeObject {
 		}
 
 		super.render(canvas);
+	}
+
+	onResize(dx, dy) {
+		this.obj.set({
+			rx: this.size.x/2,
+			ry: this.size.y/2
+		});
+
+		console.log('resize', dx, dy);
+
+		this.needUpdate = true;
 	}
 }
 

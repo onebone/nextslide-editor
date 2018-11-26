@@ -46,7 +46,7 @@ class ShapeObject extends Vector3 {
 		this.y += dy;
 
 		this.anchors.forEach(a => {
-			a.move(dx, dy);
+			a.onParentMove(dx, dy);
 		});
 
 		this.needUpdate = true;
@@ -110,6 +110,32 @@ class ShapeObject extends Vector3 {
 		return null;
 	}
 
+	_onAnchorMove(anchorId, dx, dy) {
+		switch(anchorId) {
+			case 0:
+				dx = -dx;
+				dy = -dy;
+				break;
+			case 4:
+				dx = -dx;
+				// fallthrough
+			case 6:
+				dy = 0;
+				break;
+			case 1:
+				dy = -dy;
+				// fallthrough
+			case 9:
+				dx = 0;
+				break;
+		}
+
+		this.size.x += dx;
+		this.size.y += dy;
+
+		this.onResize(dx, dy);
+	}
+
 	/**
 	 * Should be called after rendering child object
 	 */
@@ -119,6 +145,8 @@ class ShapeObject extends Vector3 {
 		this.anchors.forEach(a => a.render(canvas));
 		this.anchors = this.anchors.filter(a => a.closed === false);
 	}
+
+	onResize(dx, dy) {}
 }
 
 export default ShapeObject;

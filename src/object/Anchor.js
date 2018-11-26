@@ -14,6 +14,8 @@ class Anchor extends Vector3 {
 		super(pos.x, pos.y, pos.z);
 
 		this.parent = parent;
+		this.id = id;
+		this.anchorId = anchorId;
 
 		this.obj = new f.Circle({
 			left: pos.x, top: pos.y,
@@ -30,7 +32,7 @@ class Anchor extends Vector3 {
 		this._called = false;
 	}
 
-	move(dx, dy) {
+	onParentMove(dx, dy) {
 		this.x += dx;
 		this.y += dy;
 
@@ -39,6 +41,12 @@ class Anchor extends Vector3 {
 		this.obj.set({
 			left: this.x, top: this.y
 		});
+	}
+
+	move(dx, dy) {
+		console.log('anchor move');
+
+		this.parent._onAnchorMove(this.anchorId, dx, dy);
 	}
 
 	/**
@@ -71,8 +79,12 @@ class Anchor extends Vector3 {
 		}
 	}
 
+	onResize(dx, dy) {
+
+	}
+
 	isInside(pos) {
-		return pos.asVector2().distance(this.asVector2()) < config.AnchorSize;
+		return this.asVector2().add(config.AnchorSize, config.AnchorSize).distance(pos.asVector2()) < config.AnchorSize;
 	}
 
 	close() {
