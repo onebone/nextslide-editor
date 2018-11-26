@@ -176,6 +176,7 @@ class ShapeObject extends Vector3 {
 				case 2: id = 0; break;
 				case 6: id = 4; break;
 				case 10: id = 8; break;
+				default: return;
 			}
 
 			a.anchorId = id;
@@ -192,6 +193,7 @@ class ShapeObject extends Vector3 {
 				case 8: id = 0; break;
 				case 9: id = 1; break;
 				case 10: id = 2; break;
+				default: return;
 			}
 
 			a.anchorId = id;
