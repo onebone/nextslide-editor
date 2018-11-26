@@ -22,6 +22,8 @@ class ShapeObject extends Vector3 {
 		this.anchors = [];
 		this.size = size;
 
+		this.selected = false;
+
 		this.needUpdate = true;
 		/**
 		 * Whether this object is requested to be shown
@@ -133,7 +135,57 @@ class ShapeObject extends Vector3 {
 		this.size.x += dx;
 		this.size.y += dy;
 
+		if(this.size.x < 0) {
+			this.reverseAnchorX();
+		}
+
+		if(this.size.y < 0) {
+			this.reverseAnchorY();
+		}
+
+		if([0, 4, 8].includes(anchorId)) {
+			this.x -= dx;
+		}
+
+		if([0, 1, 2].includes(anchorId)){
+			this.y -= dy;
+		}
+
+		this.size = this.size.abs();
+
 		this.onResize(dx, dy);
+	}
+
+	reverseAnchorX() {
+		this.anchors.forEach(a => {
+			let id = 0;
+			switch(a.anchorId) {
+				case 0: id = 2; break;
+				case 4: id = 6; break;
+				case 8: id = 10; break;
+				case 2: id = 0; break;
+				case 6: id = 4; break;
+				case 10: id = 8; break;
+			}
+
+			a.anchorId = id;
+		});
+	}
+
+	reverseAnchorY() {
+		this.anchors.forEach(a => {
+			let id = 0;
+			switch(a.anchorId) {
+				case 0: id = 8; break;
+				case 1: id = 9; break;
+				case 2: id = 10; break;
+				case 8: id = 0; break;
+				case 9: id = 1; break;
+				case 10: id = 2; break;
+			}
+
+			a.anchorId = id;
+		});
 	}
 
 	/**

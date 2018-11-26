@@ -64,9 +64,11 @@ addEventListener('mousemove', e => {
 addEventListener('mouseup', e => {
 	mouse.down = false;
 
-	if(mouse.obj instanceof ShapeObject) {
-		mouse.obj.removeAnchors();
+	if(mouse.obj === null) {
+		objs.flushSelection();
 	}
 
 	mouse.obj = null;
+
+	objs.render();
 });

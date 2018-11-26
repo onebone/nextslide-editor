@@ -67,9 +67,17 @@ class Circle extends ShapeObject {
 	}
 
 	onResize(dx, dy) {
+		this.updateShape();
+	}
+
+	updateShape() {
 		this.obj.set({
+			left: this.x,
+			top: this.y,
 			rx: this.size.x/2,
-			ry: this.size.y/2
+			ry: this.size.y/2,
+			fill: this.fill,
+			angle: 0
 		});
 
 		this.needUpdate = true;

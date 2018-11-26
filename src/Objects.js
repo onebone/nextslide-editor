@@ -6,6 +6,16 @@ class Objects {
 	}
 
 	/**
+	 * Flush selection which
+	 */
+	flushSelection() {
+		this.objs.forEach(obj => {
+			obj.removeAnchors();
+			obj.selected = false;
+		});
+	}
+
+	/**
 	 * @param {ShapeObject} obj
 	 */
 	addObject(obj) {

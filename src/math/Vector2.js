@@ -8,6 +8,10 @@ class Vector2 {
 		return new Vector2(this.x + x, this.y + y);
 	}
 
+	abs() {
+		return new Vector2(Math.abs(this.x), Math.abs(this.y));
+	}
+
 	/**
 	 * @param {Vector2} pos
 	 */
