@@ -81,6 +81,13 @@ class Anchor extends Vector3 {
 
 	}
 
+	updateShape() {
+		this.obj.set({
+			left: this.x, top: this.y
+		});
+		this.needUpdate = true;
+	}
+
 	isInside(pos) {
 		return this.asVector2().add(config.AnchorSize, config.AnchorSize).distance(pos.asVector2()) < config.AnchorSize;
 	}

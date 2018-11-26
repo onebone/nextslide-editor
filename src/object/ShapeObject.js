@@ -161,6 +161,8 @@ class ShapeObject extends Vector3 {
 
 		this.size = this.size.abs();
 
+		this.repositionAnchors();
+
 		this.onResize(dx, dy);
 	}
 
@@ -193,6 +195,20 @@ class ShapeObject extends Vector3 {
 			}
 
 			a.anchorId = id;
+		});
+	}
+
+	repositionAnchors() {
+		this.anchors.forEach(a => {
+			const id = a.anchorId;
+
+			const dx = id & 0b0011;
+			const dy = (id & 0b1100) >>> 2;
+
+			a.x = this.x + dx * this.size.x/2 - config.AnchorSize/2;
+			a.y = this.y + dy * this.size.y/2 - config.AnchorSize/2;
+
+			a.updateShape();
 		});
 	}
 
