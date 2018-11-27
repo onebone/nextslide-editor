@@ -16,22 +16,14 @@ class Circle extends ShapeObject {
 
 		this.fill = fill;
 
-		this.obj = new f.Ellipse({
-			rx: this.size.x/2,
-			ry: this.size.y/2,
-			angle: 0,
-			fill: this.fill,
-			left: this.x,
-			top: this.y
-		});
+		this.obj = new f.Ellipse();
+		this.updateShape();
 	}
 
 	move(dx, dy) {
 		super.move(dx, dy);
 
-		this.obj.set({
-			left: this.x, top: this.y
-		});
+		this.updateShape();
 	}
 
 	isInside(pos) {
@@ -71,13 +63,27 @@ class Circle extends ShapeObject {
 	}
 
 	updateShape() {
+		const size = this.size.abs();
+
+		let posX = this.x, posY = this.y;
+
+		if(this.size.x < 0) {
+			posX += this.size.x;
+		}
+
+		if(this.size.y < 0) {
+			posY += this.size.y;
+		}
+
 		this.obj.set({
-			left: this.x,
-			top: this.y,
-			rx: this.size.x/2,
-			ry: this.size.y/2,
+			left: posX,
+			top: posY,
+			rx: size.x/2,
+			ry: size.y/2,
 			fill: this.fill,
-			angle: 0
+			angle: 0,
+			flipX: this.size.x < 0,
+			flipY: this.size.y < 0
 		});
 
 		this.needUpdate = true;

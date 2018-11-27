@@ -141,69 +141,9 @@ class ShapeObject extends Vector3 {
 		this.size.x += dx;
 		this.size.y += dy;
 
-		let posX = 0, posY = 0;
-		if(this.size.x < 0) {
-			posX = this.size.x;
-
-			this.reverseAnchorX();
-		}
-
-		if(this.size.y < 0) {
-			posY = this.size.y;
-
-			this.reverseAnchorY();
-		}
-
-		if([0, 4, 8].includes(anchorId)) {
-			posX -= dx;
-		}
-
-		if([0, 1, 2].includes(anchorId)){
-			posY -= dy;
-		}
-
-		this.x += posX;
-		this.y += posY;
-
-		this.size = this.size.abs();
-
 		this.repositionAnchors();
 
 		this.onResize(dx, dy);
-	}
-
-	reverseAnchorX() {
-		this.anchors.forEach(a => {
-			let id = 0;
-			switch(a.anchorId) {
-				case 0: id = 2; break;
-				case 4: id = 6; break;
-				case 8: id = 10; break;
-				case 2: id = 0; break;
-				case 6: id = 4; break;
-				case 10: id = 8; break;
-				default: return;
-			}
-
-			a.anchorId = id;
-		});
-	}
-
-	reverseAnchorY() {
-		this.anchors.forEach(a => {
-			let id = 0;
-			switch(a.anchorId) {
-				case 0: id = 8; break;
-				case 1: id = 9; break;
-				case 2: id = 10; break;
-				case 8: id = 0; break;
-				case 9: id = 1; break;
-				case 10: id = 2; break;
-				default: return;
-			}
-
-			a.anchorId = id;
-		});
 	}
 
 	repositionAnchors() {
