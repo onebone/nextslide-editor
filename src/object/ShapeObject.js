@@ -114,32 +114,32 @@ class ShapeObject extends Vector3 {
 
 	_onAnchorMove(anchorId, dx, dy) {
 		switch(anchorId) {
-			case 0:
-				dx = -dx;
-				dy = -dy;
-				break;
-			case 4:
-				dx = -dx;
-				// fallthrough
-			case 6:
+			case 4: case 6:
 				dy = 0;
 				break;
-			case 1:
-				dy = -dy;
-				// fallthrough
-			case 9:
+			case 1: case 9:
 				dx = 0;
-				break;
-			case 2:
-				dy = -dy;
-				break;
-			case 8:
-				dx = -dx;
 				break;
 		}
 
-		this.size.x += dx;
-		this.size.y += dy;
+		let posX = 0, posY = 0;
+		let sizeX = dx, sizeY = dy;
+
+		if([0, 4, 8].includes(anchorId)) {
+			posX = dx;
+			sizeX = -sizeX;
+		}
+
+		if([0, 1, 2].includes(anchorId)) {
+			posY = dy;
+			sizeY = -sizeY;
+		}
+
+		this.x += posX;
+		this.y += posY;
+
+		this.size.x += sizeX;
+		this.size.y += sizeY;
 
 		this.repositionAnchors();
 
