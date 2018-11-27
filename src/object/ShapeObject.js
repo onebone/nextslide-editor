@@ -130,6 +130,12 @@ class ShapeObject extends Vector3 {
 			case 9:
 				dx = 0;
 				break;
+			case 2:
+				dy = -dy;
+				break;
+			case 8:
+				dx = -dx;
+				break;
 		}
 
 		this.size.x += dx;
