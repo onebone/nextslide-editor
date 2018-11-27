@@ -29,11 +29,12 @@ class Circle extends ShapeObject {
 	isInside(pos) {
 		pos = pos.asVector2();
 
-		const c = Math.sqrt(Math.abs(this.size.x * this.size.x - this.size.y * this.size.y))/2;
-		const axis = Math.max(this.size.x, this.size.y);
+		const size = this.size.abs();
+		const c = Math.sqrt(Math.abs(size.x * size.x - size.y * size.y))/2;
+		const axis = Math.max(size.x, size.y);
 
 		let dx = 0, dy = 0;
-		if(this.size.x > this.size.y) {
+		if(size.x > size.y) {
 			dx = c;
 		}else{
 			dy = c;
