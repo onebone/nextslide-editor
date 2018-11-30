@@ -65,7 +65,7 @@ class Circle extends ShapeObject {
 	}
 
 	updateShape() {
-		const size = this.size.abs().mul(this.mag.mag);
+		const size = this.size.abs().mul(this.mag.value);
 
 		let posX = this.x, posY = this.y;
 

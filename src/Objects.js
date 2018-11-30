@@ -52,7 +52,7 @@ class Objects {
 
 		this.objs.forEach(obj => {
 			const pos = obj.mag.convert(obj);
-			const size = obj.size.mul(obj.mag.mag);
+			const size = obj.size.mul(obj.mag.value);
 			if(pos.x < 0 && pos.x + size.x < 0
 			||  pos.y < 0 && pos.y + size.y < 0) {
 				return; // omit shape if not need to

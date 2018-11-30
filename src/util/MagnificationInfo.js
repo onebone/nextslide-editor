@@ -1,11 +1,11 @@
 class MagnificationInfo {
 	/**
 	 *
-	 * @param {Number} mag
+	 * @param {Number} value
 	 * @param {Vector2} edge Absolute position of top left screen
 	 */
-	constructor(mag, edge) {
-		this.mag = mag;
+	constructor(value, edge) {
+		this.value = value;
 		this.edge = edge;
 	}
 
@@ -14,7 +14,7 @@ class MagnificationInfo {
 	 * @returns {Vector2|Vector3}
 	 */
 	convert(pos) {
-		return pos.mul(this.mag).add(-this.edge.x, -this.edge.y);
+		return pos.mul(this.value).add(-this.edge.x, -this.edge.y);
 	}
 }
 
