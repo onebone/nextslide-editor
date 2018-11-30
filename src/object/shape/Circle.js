@@ -78,7 +78,6 @@ class Circle extends ShapeObject {
 		}
 
 		const pos = this.mag.convert(new Vector2(posX, posY));
-		console.log(posX, posY, pos);
 		this.obj.set({
 			left: pos.x,
 			top: pos.y,

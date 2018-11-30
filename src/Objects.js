@@ -51,10 +51,11 @@ class Objects {
 		let hasClosed = false;
 
 		this.objs.forEach(obj => {
-			if(obj.x < 0 || obj.y < 0) { // omit shape if not need to
-				if(obj.x + obj.size.x < 0 || obj.y + obj.size.y < 0) {
-					return;
-				}
+			const pos = obj.mag.convert(obj);
+			const size = obj.size.mul(obj.mag.mag);
+			if(pos.x < 0 && pos.x + size.x < 0
+			||  pos.y < 0 && pos.y + size.y < 0) {
+				return; // omit shape if not need to
 			}
 
 			obj._called = false;
