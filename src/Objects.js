@@ -51,6 +51,12 @@ class Objects {
 		let hasClosed = false;
 
 		this.objs.forEach(obj => {
+			if(obj.x < 0 || obj.y < 0) { // omit shape if not need to
+				if(obj.x + obj.size.x < 0 || obj.y + obj.size.y < 0) {
+					return;
+				}
+			}
+
 			obj._called = false;
 			obj.render(this.canvas);
 			if(obj._called === false) {

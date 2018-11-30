@@ -14,13 +14,15 @@ class ShapeObject extends Vector3 {
 	 * @param {Number} id
 	 * @param {Vector3} pos
 	 * @param {Vector2} size
+	 * @param {MagnificationInfo} mag
 	 */
-	constructor(id, pos, size) {
+	constructor(id, pos, size, mag) {
 		super(pos.x, pos.y, pos.z);
 
 		this.id = id;
 		this.anchors = [];
 		this.size = size;
+		this.mag = mag;
 
 		this.selected = false;
 
@@ -163,11 +165,19 @@ class ShapeObject extends Vector3 {
 	/**
 	 * Should be called after rendering child object
 	 */
-	render(canvas) {
+	render(canvas, mag) {
 		this._called = true;
 
 		this.anchors.forEach(a => a.render(canvas));
 		this.anchors = this.anchors.filter(a => a.closed === false);
+	}
+
+	/**
+	 * @param {MagnificationInfo} mag
+	 */
+	onMagnificationChanged(mag) {
+		this.mag = mag;
+		this.needUpdate = true;
 	}
 
 	onResize(dx, dy) {}

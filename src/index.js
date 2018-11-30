@@ -1,6 +1,7 @@
 import Objects from './Objects';
 import ShapeObject from './object/ShapeObject';
 import MouseInfo from './MouseInfo';
+import MagnificationInfo from './util/MagnificationInfo';
 import Circle from './object/shape/Circle';
 import Vector2 from './math/Vector2';
 import Vector3 from './math/Vector3';
@@ -13,11 +14,13 @@ const objs = new Objects(canvas);
 
 const mouse = new MouseInfo();
 
+const mag = new MagnificationInfo(1, new Vector2(0, 0));
+
 /// TEST CODE
-const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), new Vector2(100, 100));
+const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), new Vector2(100, 100), mag);
 objs.addObject(circle);
 
-const circle2 = new Circle(globals.shapeId++, new Vector3(200, 200, globals.topZIndex++), new Vector2(100, 100));
+const circle2 = new Circle(globals.shapeId++, new Vector3(200, 200, globals.topZIndex++), new Vector2(100, 100), mag);
 objs.addObject(circle2);
 objs.render(canvas);
 

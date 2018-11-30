@@ -14,6 +14,10 @@ class Vector3 {
 		return new Vector3(this.x + x, this.y + y, this.z + z);
 	}
 
+	mul(v) {
+		return new Vector3(this.x * v, this.y * v, this.z * v);
+	}
+
 	asVector2() {
 		return new Vector2(this.x, this.y);
 	}

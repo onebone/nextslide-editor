@@ -9,10 +9,11 @@ class Circle extends ShapeObject {
 	 * @param {Number} id
 	 * @param {Vector3} pos
 	 * @param {Vector2} size
+	 * @param {MagnificationInfo} mag
 	 * @param {String} fill
 	 */
-	constructor(id, pos, size, fill = Config.DEFAULT_FILL_COLOR) {
-		super(id, pos, size);
+	constructor(id, pos, size, mag, fill = Config.DEFAULT_FILL_COLOR) {
+		super(id, pos, size, mag);
 
 		this.fill = fill;
 
@@ -64,7 +65,7 @@ class Circle extends ShapeObject {
 	}
 
 	updateShape() {
-		const size = this.size.abs();
+		const size = this.size.abs().mul(this.mag.mag);
 
 		let posX = this.x, posY = this.y;
 
@@ -76,9 +77,11 @@ class Circle extends ShapeObject {
 			posY += this.size.y;
 		}
 
+		const pos = this.mag.convert(new Vector2(posX, posY));
+		console.log(posX, posY, pos);
 		this.obj.set({
-			left: posX,
-			top: posY,
+			left: pos.x,
+			top: pos.y,
 			rx: size.x/2,
 			ry: size.y/2,
 			fill: this.fill,
