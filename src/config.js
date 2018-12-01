@@ -4,7 +4,11 @@ const config = {
 	AnchorColor: '#4dd0e1',
 	AnchorStrokeColor: 'black',
 	AnchorSize: 5,
-	AnchorStrokeWidth: 1
+	AnchorStrokeWidth: 1,
+
+	RangeViewColor: '#2979ff',
+	RangeViewStroke: '#1a237e',
+	RangeViewWidth: 1
 };
 
 Object.freeze(config);

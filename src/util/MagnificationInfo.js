@@ -18,4 +18,4 @@ class MagnificationInfo {
 	}
 }
 
-module.exports = MagnificationInfo;
+export default MagnificationInfo;

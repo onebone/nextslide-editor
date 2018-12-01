@@ -3,6 +3,7 @@ import ShapeObject from './object/ShapeObject';
 import Anchor from './object/Anchor';
 import MouseInfo from './MouseInfo';
 import MagnificationInfo from './util/MagnificationInfo';
+import RangeView from './util/RangeView';
 import Circle from './object/shape/Circle';
 import Vector2 from './math/Vector2';
 import Vector3 from './math/Vector3';
@@ -12,10 +13,9 @@ const f = require('fabric').fabric;
 const canvas = new f.StaticCanvas('canvas');
 
 const objs = new Objects(canvas);
-
 const mouse = new MouseInfo();
-
 const mag = new MagnificationInfo(1, new Vector2(0, 0));
+const rv = new RangeView(new Vector2(0, 0), new Vector2(0, 0));
 
 /// TEST CODE
 const circle = new Circle(globals.shapeId++, new Vector3(100, 100, globals.topZIndex++), new Vector2(100, 100), mag);
@@ -51,7 +51,10 @@ addEventListener('mousedown', e => {
 	mouse.down = true;
 
 	if(mouse.obj instanceof ShapeObject) {
-		obj.showAnchors();
+		obj.select();
+	}else if(mouse.obj === null) {
+		rv.pos = rv.first = pos;
+		rv.currentlyShown = true;
 	}
 
 	objs.render();
@@ -63,6 +66,10 @@ addEventListener('mousemove', e => {
 
 		if(mouse.obj !== null) {
 			mouse.obj.move(e.clientX - mouse.lastPos.x, e.clientY - mouse.lastPos.y);
+		}else{
+			rv.pos = pos;
+			rv.updateShape();
+			rv.render(canvas);
 		}
 
 		mouse.lastPos = pos;
@@ -75,6 +82,22 @@ addEventListener('mouseup', e => {
 
 	if(mouse.obj === null) {
 		objs.flushSelection();
+
+		rv.currentlyShown = false;
+		rv.render(canvas);
+
+		const min = rv.min;
+		const max = rv.max;
+		objs.objs.forEach(obj => {
+			if(
+				(min.x < obj.x && obj.x < max.x
+				|| min.x < obj.x + obj.size.x && obj.x + obj.size.x < max.x)
+				&& (min.y < obj.y && obj.y < max.y
+				|| min.y < obj.y + obj.size.y && obj.y + obj.size.y < max.y)
+			) {
+				obj.select();
+			}
+		});
 	}
 
 	mouse.obj = null;
