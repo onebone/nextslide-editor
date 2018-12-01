@@ -1,5 +1,6 @@
 import Objects from './Objects';
 import ShapeObject from './object/ShapeObject';
+import Anchor from './object/Anchor';
 import MouseInfo from './MouseInfo';
 import MagnificationInfo from './util/MagnificationInfo';
 import Circle from './object/shape/Circle';
@@ -40,6 +41,11 @@ addEventListener('mousedown', e => {
 	const pos = new Vector2(e.clientX, e.clientY);
 
 	const obj = objs.pickObject(pos);
+
+	if(!e.ctrlKey && !(obj instanceof Anchor)) {
+		objs.flushSelection();
+	}
+
 	mouse.obj = obj;
 	mouse.lastPos = mouse.firstPos = pos;
 	mouse.down = true;

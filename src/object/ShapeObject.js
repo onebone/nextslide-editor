@@ -104,6 +104,11 @@ class ShapeObject extends Vector3 {
 		globals.topZIndex++;
 	}
 
+	unselect() {
+		this.selected = false;
+		this.removeAnchors();
+	}
+
 	removeAnchors() {
 		this.anchors.forEach(a => a.close());
 	}

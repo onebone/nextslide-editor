@@ -10,8 +10,7 @@ class Objects {
 	 */
 	flushSelection() {
 		this.objs.forEach(obj => {
-			obj.removeAnchors();
-			obj.selected = false;
+			obj.unselect();
 		});
 	}
 
