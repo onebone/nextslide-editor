@@ -30,7 +30,7 @@ class Circle extends ShapeObject {
 	isInside(pos) {
 		pos = pos.asVector2();
 
-		const size = this.size.abs();
+		const size = this.size.abs().mul(this.mag.value);
 		const c = Math.sqrt(Math.abs(size.x * size.x - size.y * size.y))/2;
 		const axis = Math.max(size.x, size.y);
 
@@ -41,7 +41,7 @@ class Circle extends ShapeObject {
 			dy = c;
 		}
 
-		const p = this.asVector2().add(this.size.x/2, this.size.y/2);
+		const p = this.mag.convert(this.asVector2()).add(this.size.x/2 * this.mag.value, this.size.y/2 * this.mag.value);
 
 		return p.add(dx, dy).distance(pos) + p.add(-dx, -dy).distance(pos) <= axis;
 	}

@@ -46,8 +46,8 @@ class ShapeObject extends Vector3 {
 	}
 
 	move(dx, dy) {
-		this.x += dx;
-		this.y += dy;
+		this.x += dx / this.mag.value;
+		this.y += dy / this.mag.value;
 
 		this.anchors.forEach(a => {
 			a.onParentMove(dx, dy);
@@ -80,6 +80,9 @@ class ShapeObject extends Vector3 {
 	}
 
 	showAnchors() {
+		const pos = this.mag.convert(this);
+		const size = this.size.mul(this.mag.value);
+
 		ANCHORS.forEach(v => {
 			const dx = v & 0b0011;
 			const dy = (v & 0b1100) >>> 2;
@@ -89,8 +92,8 @@ class ShapeObject extends Vector3 {
 				globals.shapeId++,
 				v,
 				new Vector3(
-					this.x + dx * this.size.x/2 - config.AnchorSize/2,
-					this.y + dy * this.size.y/2 - config.AnchorSize/2,
+					pos.x + dx * size.x/2 - config.AnchorSize/2,
+					pos.y + dy * size.y/2 - config.AnchorSize/2,
 					globals.topZIndex
 				)
 			);
@@ -137,11 +140,11 @@ class ShapeObject extends Vector3 {
 			sizeY = -sizeY;
 		}
 
-		this.x += posX;
-		this.y += posY;
+		this.x += posX / this.mag.value;
+		this.y += posY / this.mag.value;
 
-		this.size.x += sizeX;
-		this.size.y += sizeY;
+		this.size.x += sizeX / this.mag.value;
+		this.size.y += sizeY / this.mag.value;
 
 		this.repositionAnchors();
 
@@ -149,14 +152,17 @@ class ShapeObject extends Vector3 {
 	}
 
 	repositionAnchors() {
+		const pos = this.mag.convert(this);
+		const size = this.size.mul(this.mag.value);
+
 		this.anchors.forEach(a => {
 			const id = a.anchorId;
 
 			const dx = id & 0b0011;
 			const dy = (id & 0b1100) >>> 2;
 
-			a.x = this.x + dx * this.size.x/2 - config.AnchorSize/2;
-			a.y = this.y + dy * this.size.y/2 - config.AnchorSize/2;
+			a.x = pos.x + dx * size.x/2 - config.AnchorSize/2;
+			a.y = pos.y + dy * size.y/2 - config.AnchorSize/2;
 
 			a.updateShape();
 		});
