@@ -20,7 +20,6 @@ class RangeView {
 			top: Math.min(this.pos.y, this.first.y),
 			width: Math.abs(this.pos.x - this.first.x),
 			height: Math.abs(this.pos.y - this.first.y),
-			opacity: 0.4,
 
 			stroke: config.RangeViewStroke,
 			strokeWidth: config.RangeViewWidth,

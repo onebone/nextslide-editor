@@ -6,8 +6,8 @@ const config = {
 	AnchorSize: 5,
 	AnchorStrokeWidth: 1,
 
-	RangeViewColor: '#2979ff',
-	RangeViewStroke: '#1a237e',
+	RangeViewColor: '#2979ff30',
+	RangeViewStroke: '#448aff',
 	RangeViewWidth: 1
 };
 
