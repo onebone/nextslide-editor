@@ -90,10 +90,8 @@ addEventListener('mouseup', e => {
 		const max = rv.max;
 		objs.objs.forEach(obj => {
 			if(
-				(min.x < obj.x && obj.x < max.x
-				|| min.x < obj.x + obj.size.x && obj.x + obj.size.x < max.x)
-				&& (min.y < obj.y && obj.y < max.y
-				|| min.y < obj.y + obj.size.y && obj.y + obj.size.y < max.y)
+				(min.x - obj.x - obj.size.x) * (max.x - obj.x) < 0
+				&& (min.y - obj.y - obj.size.y) * (max.y - obj.y) < 0
 			) {
 				obj.select();
 			}
