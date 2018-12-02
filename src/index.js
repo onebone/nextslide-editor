@@ -89,9 +89,14 @@ addEventListener('mouseup', e => {
 		const min = rv.min;
 		const max = rv.max;
 		objs.objs.forEach(obj => {
+			const leftX = Math.min(obj.x, obj.x + obj.size.x);
+			const rightX = Math.max(obj.x, obj.x + obj.size.x);
+			const leftY = Math.min(obj.y, obj.y + obj.size.y);
+			const rightY = Math.max(obj.y, obj.y + obj.size.y);
+
 			if(
-				(min.x - obj.x - obj.size.x) * (max.x - obj.x) < 0
-				&& (min.y - obj.y - obj.size.y) * (max.y - obj.y) < 0
+				(min.x - rightX) * (max.x - leftX) < 0
+				&& (min.y - rightY) * (max.y - leftY) < 0
 			) {
 				obj.select();
 			}
