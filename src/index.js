@@ -88,21 +88,25 @@ addEventListener('mouseup', e => {
 		rv.currentlyShown = false;
 		rv.render(canvas);
 
-		const min = rv.min;
-		const max = rv.max;
-		objs.objs.forEach(obj => {
-			const leftX = Math.min(obj.x, obj.x + obj.size.x);
-			const rightX = Math.max(obj.x, obj.x + obj.size.x);
-			const leftY = Math.min(obj.y, obj.y + obj.size.y);
-			const rightY = Math.max(obj.y, obj.y + obj.size.y);
+		if(mouse.firstPos.equals(mouse.lastPos)) {
+			objs.pickObject(mouse.lastPos);
+		}else {
+			const min = rv.min;
+			const max = rv.max;
+			objs.objs.forEach(obj => {
+				const leftX = Math.min(obj.x, obj.x + obj.size.x);
+				const rightX = Math.max(obj.x, obj.x + obj.size.x);
+				const leftY = Math.min(obj.y, obj.y + obj.size.y);
+				const rightY = Math.max(obj.y, obj.y + obj.size.y);
 
-			if(
-				(min.x - rightX) * (max.x - leftX) < 0
-				&& (min.y - rightY) * (max.y - leftY) < 0
-			) {
-				obj.select();
-			}
-		});
+				if (
+					(min.x - rightX) * (max.x - leftX) < 0
+					&& (min.y - rightY) * (max.y - leftY) < 0
+				) {
+					obj.select();
+				}
+			});
+		}
 	}
 
 	mouse.obj = null;

@@ -26,6 +26,13 @@ class Vector2 {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 
+	/**
+	 * @param {Vector2} vec
+	 */
+	equals(vec) {
+		return vec.x === this.x && vec.y === this.y;
+	}
+
 	asVector2() {
 		return new Vector2(this.x, this.y);
 	}

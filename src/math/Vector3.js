@@ -18,6 +18,14 @@ class Vector3 {
 		return new Vector3(this.x * v, this.y * v, this.z * v);
 	}
 
+	/**
+	 * @param {Vector3} vec
+	 * @returns {boolean}
+	 */
+	equals(vec) {
+		return vec.x === this.x && vec.y === this.y && vec.z === this.z;
+	}
+
 	asVector2() {
 		return new Vector2(this.x, this.y);
 	}
