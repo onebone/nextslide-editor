@@ -38,26 +38,28 @@ addEventListener('resize', () => {
 resize();
 
 addEventListener('mousedown', e => {
-	const pos = new Vector2(e.clientX, e.clientY);
+	if(e.button === 0) {
+		const pos = new Vector2(e.clientX, e.clientY);
 
-	const obj = objs.pickObject(pos);
+		const obj = objs.pickObject(pos);
 
-	if(!e.ctrlKey && !(obj instanceof Anchor)) {
-		objs.flushSelection();
+		if (!e.ctrlKey && !(obj instanceof Anchor)) {
+			objs.flushSelection();
+		}
+
+		mouse.obj = obj;
+		mouse.lastPos = mouse.firstPos = pos;
+		mouse.down = true;
+
+		if (mouse.obj instanceof ShapeObject) {
+			obj.select();
+		} else if (mouse.obj === null) {
+			rv.pos = rv.first = pos;
+			rv.currentlyShown = true;
+		}
+
+		objs.render();
 	}
-
-	mouse.obj = obj;
-	mouse.lastPos = mouse.firstPos = pos;
-	mouse.down = true;
-
-	if(mouse.obj instanceof ShapeObject) {
-		obj.select();
-	}else if(mouse.obj === null) {
-		rv.pos = rv.first = pos;
-		rv.currentlyShown = true;
-	}
-
-	objs.render();
 });
 
 addEventListener('mousemove', e => {
