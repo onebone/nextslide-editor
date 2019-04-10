@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
 	entry: {
-		nextslide: path.resolve(__dirname, 'src', 'index.js')
+		nextslide: path.resolve(__dirname, 'src', 'index.ts')
 	},
 
 	output: {
@@ -23,7 +23,11 @@ module.exports = {
 					/node_modules/
 				]
 			},
-
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: /node_modules/
+			},
 			{
 				test: /\.(png|jpe?g|gif|woff2?|otf|wav|ttf|eot|svg)(\?|\#.*)?$/,
 				loader: 'file-loader',

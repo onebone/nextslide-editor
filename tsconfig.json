@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "target": "es5",
+    "lib": ["es5", "dom", "es2015.core"],
+    "allowJs": true,
+
+    "module": "commonjs",
+    "moduleResolution": "node"
+  }
+}
