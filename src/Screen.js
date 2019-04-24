@@ -41,19 +41,21 @@ class Screen {
 
 		root:
 		for(const obj in this.objs) {
-			for(const pos in [
+			for(const objPos in [
 				new Vector2(obj.x, obj.y),
 				new Vector2(obj.x + obj.size.x, obj.y),
 				new Vector2(obj.x, obj.y + obj.size.y),
 				new Vector2(obj.x + obj.size.x, obj.y + obj.size.y)
 			]) {
-				if(!(pos.x < obj.x && obj.x < pos.x + this.size.x
-					&& pos.y < obj.y && obj.y < pos.y + this.size.y)) {
+				if(!(pos.x < objPos.x && objPos.x < pos.x + this.size.x
+					&& pos.y < objPos.y && objPos.y < pos.y + this.size.y)) {
+					obj.hideObject();
+
 					continue root;
 				}
 			}
 
-			obj.render(this.canvas);
+			obj.showObject();
 		}
 	}
 
